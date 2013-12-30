@@ -12,14 +12,14 @@ exec { 'apt-get update 2':
   require => [ Apt::Ppa["ppa:webupd8team/java"]  ],
 }
 
-package { 'oracle-java7-installer':
+package { 'oracle-java6-installer':
         ensure       => present,
         require      => Exec['apt-get update 2'],
 }
 
 package { 'maven':
         ensure => present,
-        require => Package["oracle-java7-installer"],
+        require => Package["oracle-java6-installer"],
 }
 
 package { ['git','subversion','vim']:
@@ -33,6 +33,6 @@ exec {
   cwd  => "/home/vagrant",
   user => "vagrant",
   path => "/usr/bin/:/bin/",
-  before => Package["oracle-java7-installer"],
+  before => Package["oracle-java6-installer"],
   logoutput => true,
 }
